@@ -52,7 +52,7 @@ app.get('/tracking/:id', async (req, res) => {
         res.set('Pragma', 'no-cache')
         res.set('Expires', '0')
         res.type('gif')
-        res.send(Buffer.from('R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=', 'base64'))
+        res.send(Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=', 'base64'))
     } catch (err) {
         console.error(err)
         res.status(500).send()
