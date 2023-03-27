@@ -13,4 +13,4 @@ Environment variables needed (a `.env` file can be used for this):
 
 Screenshot:
 
-<img src="./screenshot.png" style="max-height: 512px">
+<img src="./screenshot.png" style="height: 512px">
