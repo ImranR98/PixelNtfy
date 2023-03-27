@@ -10,3 +10,7 @@ Environment variables needed (a `.env` file can be used for this):
 - `NTFY_TOPIC`: The ntfy topic (if not provided, a topic is auto-generated and printed to the console).
 - `NTFY_SERVER_URL`: The ntfy server URL (optional - defaults to [ntfy.sh](https://ntfy.sh)).
 - `PORT`: The port to listen on (optional - defaults to `3000`).
+
+Screenshot:
+
+<img src="./screenshot.png" style="max-height: 512px">
