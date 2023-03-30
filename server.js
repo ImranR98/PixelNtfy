@@ -38,13 +38,16 @@ app.get('/tracking/:id', async (req, res) => {
         }
         const dateString = formatDate(date)
         const postUrl = `${ntfyServerUrl}/${ntfyTopic}`
+        const accessTitle = `Pixel Access at ${dateString}: ${tag}`
+        const accessDetails = Object.keys(req.headers)
+            .map(k => `- ${k}: ${req.headers[k]}`).join('\n')
+        console.log(`\n${accessTitle}\n${accessDetails}\n`)
         try {
-            await axios.post(postUrl, tag, {
+            await axios.post(postUrl, accessDetails, {
                 headers: {
-                    Title: `Pixel Accessed at ${dateString}`,
+                    Title: accessTitle,
                 }
             })
-            console.log(`Sent notification at ${dateString}. Tag: ${tag}`)
         } catch (error) {
             console.error('Error sending notification:', error.message)
         }
