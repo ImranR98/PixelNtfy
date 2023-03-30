@@ -38,12 +38,19 @@ app.get('/tracking/:id', async (req, res) => {
         }
         const dateString = formatDate(date)
         const postUrl = `${ntfyServerUrl}/${ntfyTopic}`
-        const accessTitle = `Pixel Access at ${dateString}: ${tag}`
-        const accessDetails = Object.keys(req.headers)
-            .map(k => `- ${k}: ${req.headers[k]}`).join('\n')
-        console.log(`\n${accessTitle}\n${accessDetails}\n`)
+        const accessTitle = `Pixel Accessed: "${tag}"`
+        const getAccessDetails = (dateString, headers, includeHeaders) => {
+            const lines = [
+                `From ${headers['x-real-ip'] || headers['x-forwarded-for'] || 'Unknown IP'} at ${dateString}\n[${headers['user-agent']}]`
+            ]
+            if (includeHeaders) {
+                lines.push('All Headers: ' + JSON.stringify(headers, null, '\t'))
+            }
+            return lines.join('\n\n')
+        }
+        console.log(`\n${accessTitle}\n${getAccessDetails(dateString, req.headers, true)}\n`)
         try {
-            await axios.post(postUrl, accessDetails, {
+            await axios.post(postUrl, getAccessDetails(dateString, req.headers), {
                 headers: {
                     Title: accessTitle,
                 }
