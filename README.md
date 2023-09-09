@@ -7,7 +7,8 @@ Each pixel is associated with a tag and a timestamp that are included in the acc
 This service is meant to be self-hosted and single-user. To prevent unauthorized usage, the ntfy topic doubles as a password, and must be provided when the pixel is generated.
 
 Environment variables needed (a `.env` file can be used for this):
-- `NTFY_TOPIC`: The ntfy topic (if not provided, a topic is auto-generated and printed to the console).
+- `NTFY_TOPIC`: The ntfy topic - this MUST be 32 characters long (if not provided, a topic is auto-generated and printed to the console).
+- `NTFY_TOKEN`: A ntfy access token (optional).
 - `NTFY_SERVER_URL`: The ntfy server URL (optional - defaults to [ntfy.sh](https://ntfy.sh)).
 - `PORT`: The port to listen on (optional - defaults to `3000`).
 

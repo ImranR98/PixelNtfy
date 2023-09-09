@@ -50,10 +50,14 @@ app.get('/tracking/:id', async (req, res) => {
         }
         console.log(`\n${accessTitle}\n${getAccessDetails(dateString, req.headers, true)}\n`)
         try {
+            const headers = {
+                Title: accessTitle
+            }
+            if (process.env.NTFY_TOKEN) {
+                headers['Authorization'] = `Basic ${Buffer.from(`:${process.env.NTFY_TOKEN}`).toString('base64')}`
+            }
             await axios.post(postUrl, getAccessDetails(dateString, req.headers), {
-                headers: {
-                    Title: accessTitle,
-                }
+                headers: headers
             })
         } catch (error) {
             console.error('Error sending notification:', error.message)
