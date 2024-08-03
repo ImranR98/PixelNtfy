@@ -6,6 +6,16 @@ const app = express()
 
 dotenv.config()
 
+if (process.env['ANALYTICS_SCRIPT_ELEMENT'] && /<script [^(<>)]+><\/script>/.test(process.env['ANALYTICS_SCRIPT_ELEMENT'])) {
+    const indexHTML = __dirname + '/public/index.html'
+    fs.writeFileSync(indexHTML,
+      fs.readFileSync(indexHTML).toString().replace(
+        '<!-- ANALYTICS_SCRIPT_PLACEHOLDER -->',
+        process.env['ANALYTICS_SCRIPT_ELEMENT']
+      )
+    )
+  }
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
