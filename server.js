@@ -8,9 +8,8 @@ const fs = require('fs')
 
 dotenv.config()
 
-const applyAnalyticsScript = () => {
+const applyAnalyticsScript = (indexHTML = path.join(__dirname, 'public', 'index.html')) => {
     if (process.env['ANALYTICS_SCRIPT_ELEMENT'] && /<script [^(<>)]+><\/script>/.test(process.env['ANALYTICS_SCRIPT_ELEMENT'])) {
-        const indexHTML = path.join(__dirname, 'public', 'index.html')
         fs.writeFileSync(indexHTML,
             fs.readFileSync(indexHTML).toString().replace(
                 '<!-- ANALYTICS_SCRIPT_PLACEHOLDER -->',
@@ -159,6 +158,7 @@ const formatDate = (date) => {
 
 module.exports = {
     app,
+    applyAnalyticsScript,
     encrypt,
     decrypt,
     hashString,
