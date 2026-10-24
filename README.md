@@ -12,6 +12,26 @@ Environment variables needed (a `.env` file can be used for this):
 - `NTFY_SERVER_URL`: The ntfy server URL (optional - defaults to [ntfy.sh](https://ntfy.sh)).
 - `PORT`: The port to listen on (optional - defaults to `3000`).
 
+## Docker
+
+The production image is published to GitHub Container Registry as `ghcr.io/imranr98/pixel-ntfy:latest`.
+
+```bash
+docker run -d --name pixelntfy -p 8080:3000 \
+  -e NTFY_TOPIC=<your-32-character-topic> \
+  ghcr.io/imranr98/pixel-ntfy:latest
+```
+
+## Development
+
+```bash
+npm ci
+npm run build
+npm test
+```
+
+Dependencies are updated by Renovate. Auto-merge is disabled until the `test` workflow is a required branch-protection check.
+
 Screenshot:
 
 <img src="./screenshot.png" style="height: 512px">

@@ -1,4 +1,14 @@
-FROM node
+# Production image: ghcr.io/imranr98/pixel-ntfy
+FROM node:lts-alpine
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
+
 COPY . .
-RUN npm install
-CMD ["npm", "start"]
+
+ENV NODE_ENV=production
+EXPOSE 3000
+
+CMD ["node", "server.js"]
