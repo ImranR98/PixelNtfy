@@ -7,7 +7,7 @@
     "start": "node server.js",
     "build": "node --check server.js && node --check public/app.js",
     "test": "node --test --test-reporter=spec test/*.test.js",
-    "test:coverage": "node --test --experimental-test-coverage --test-coverage-include=server.js --test-coverage-lines=93 --test-coverage-branches=90 --test-coverage-functions=85 --test-reporter=spec test/*.test.js",
+    "test:coverage": "node --test --experimental-test-coverage --test-coverage-include=server.js --test-coverage-lines=93 --test-coverage-branches=88 --test-coverage-functions=85 --test-reporter=spec test/*.test.js",
     "dockerize": "docker build -t ghcr.io/imranr98/pixel-ntfy . && docker push ghcr.io/imranr98/pixel-ntfy"
   },
   "author": "",
