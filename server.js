@@ -2,20 +2,23 @@ const express = require('express')
 const axios = require('axios')
 const dotenv = require('dotenv')
 const crypto = require('crypto')
+const path = require('path')
 const app = express()
 const fs = require('fs')
 
 dotenv.config()
 
-if (process.env['ANALYTICS_SCRIPT_ELEMENT'] && /<script [^(<>)]+><\/script>/.test(process.env['ANALYTICS_SCRIPT_ELEMENT'])) {
-    const indexHTML = __dirname + '/public/index.html'
-    fs.writeFileSync(indexHTML,
-      fs.readFileSync(indexHTML).toString().replace(
-        '<!-- ANALYTICS_SCRIPT_PLACEHOLDER -->',
-        process.env['ANALYTICS_SCRIPT_ELEMENT']
-      )
-    )
-  }
+const applyAnalyticsScript = () => {
+    if (process.env['ANALYTICS_SCRIPT_ELEMENT'] && /<script [^(<>)]+><\/script>/.test(process.env['ANALYTICS_SCRIPT_ELEMENT'])) {
+        const indexHTML = path.join(__dirname, 'public', 'index.html')
+        fs.writeFileSync(indexHTML,
+            fs.readFileSync(indexHTML).toString().replace(
+                '<!-- ANALYTICS_SCRIPT_PLACEHOLDER -->',
+                process.env['ANALYTICS_SCRIPT_ELEMENT']
+            )
+        )
+    }
+}
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -30,7 +33,7 @@ if (!process.env.NTFY_TOPIC) {
 const ntfyTopic = process.env.NTFY_TOPIC
 const ntfyServerUrl = process.env.NTFY_SERVER_URL || 'https://ntfy.sh'
 
-app.use(express.static('public'))
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/tracking/:id', async (req, res) => {
     try {
@@ -103,9 +106,12 @@ app.post('/tracking', (req, res) => {
     }
 })
 
-app.listen(port, () => {
-    console.log('Server started on port', port)
-})
+if (require.main === module) {
+    applyAnalyticsScript()
+    app.listen(port, () => {
+        console.log('Server started on port', port)
+    })
+}
 
 const encrypt = (str, secretKey) => {
     const iv = crypto.randomBytes(16);
@@ -149,4 +155,14 @@ const formatDate = (date) => {
     minutes = minutes < 10 ? '0' + minutes : minutes;
     let strTime = hours + ':' + minutes + ' ' + ampm;
     return year + '-' + month + '-' + day + ' ' + strTime;
+}
+
+module.exports = {
+    app,
+    encrypt,
+    decrypt,
+    hashString,
+    generateTrackingPixelId,
+    parseTrackingPixelId,
+    formatDate
 }

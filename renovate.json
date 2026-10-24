@@ -1,0 +1,37 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "docker:pinDigests",
+    "helpers:pinGitHubActionDigests",
+    ":configMigration",
+    "security:minimumReleaseAgeNpm"
+  ],
+  "osvVulnerabilityAlerts": true,
+  "dependencyDashboard": true,
+  "rangeStrategy": "replace",
+  "automerge": false,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["at any time"]
+  },
+  "packageRules": [
+    {
+      "description": "Batch non-major npm updates; majors stay separate",
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "groupName": "npm deps (non-major)"
+    },
+    {
+      "description": "Docker base image pins and digest refreshes",
+      "matchManagers": ["dockerfile"],
+      "matchUpdateTypes": ["digest", "pinDigest"],
+      "groupName": "docker base images"
+    },
+    {
+      "description": "GitHub Actions updates",
+      "matchManagers": ["github-actions"],
+      "groupName": "github actions"
+    }
+  ]
+}
