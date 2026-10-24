@@ -72,13 +72,6 @@
       "automergeStrategy": "squash"
     },
     {
-      "description": "Major updates stay manual",
-      "matchUpdateTypes": [
-        "major"
-      ],
-      "automerge": false
-    },
-    {
       "description": "Auto-merge major updates after the full test gate passes",
       "matchUpdateTypes": [
         "major"

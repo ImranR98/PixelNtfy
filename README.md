@@ -33,7 +33,7 @@ npm run test:coverage
 
 `test:coverage` enforces line ≥93%, branch ≥90%, and function ≥85% coverage for `server.js`.
 
-Dependencies are updated by Renovate. Non-major updates are configured for native auto-merge; this takes effect once the `test` workflow is a required branch-protection check. Major updates stay manual.
+Dependencies are updated by Renovate. Minor, patch, pin, and digest updates and major updates are configured for native auto-merge; this takes effect once the `test` workflow is a required branch-protection check.
 
 Screenshot:
 
