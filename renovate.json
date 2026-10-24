@@ -14,30 +14,58 @@
   "separateMajorMinor": true,
   "lockFileMaintenance": {
     "enabled": true,
-    "schedule": ["at any time"]
+    "schedule": [
+      "at any time"
+    ]
   },
   "packageRules": [
     {
       "description": "Batch non-major npm updates; majors stay separate",
-      "matchManagers": ["npm"],
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "matchManagers": [
+        "npm"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest"
+      ],
       "groupName": "npm deps (non-major)"
     },
     {
       "description": "Docker base image pins and digest refreshes",
-      "matchManagers": ["dockerfile"],
-      "matchUpdateTypes": ["digest", "pinDigest"],
+      "matchManagers": [
+        "dockerfile"
+      ],
+      "matchUpdateTypes": [
+        "digest",
+        "pinDigest"
+      ],
       "groupName": "docker base images"
     },
     {
       "description": "Batch non-major GitHub Actions updates; majors stay separate",
-      "matchManagers": ["github-actions"],
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest", "pinDigest"],
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "pinDigest"
+      ],
       "groupName": "github actions (non-major)"
     },
     {
       "description": "Auto-merge non-major updates after the required test check passes",
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest", "pinDigest"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "pinDigest"
+      ],
       "automerge": true,
       "platformAutomerge": true,
       "automergeType": "pr",
@@ -45,8 +73,21 @@
     },
     {
       "description": "Major updates stay manual",
-      "matchUpdateTypes": ["major"],
+      "matchUpdateTypes": [
+        "major"
+      ],
       "automerge": false
+    },
+    {
+      "description": "Auto-merge major updates after the full test gate passes",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "automerge": true,
+      "platformAutomerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash",
+      "ignoreTests": false
     }
   ]
 }
