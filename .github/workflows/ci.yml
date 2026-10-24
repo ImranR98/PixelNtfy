@@ -34,10 +34,10 @@ jobs:
       - name: Build (syntax check)
         run: npm run build
 
-      - name: Test
+      - name: Test with coverage
         run: |
           set -o pipefail
-          npm test 2>&1 | tee test-output.log
+          npm run test:coverage 2>&1 | tee test-output.log
 
       - name: Reject skipped tests
         run: |

@@ -28,9 +28,12 @@ docker run -d --name pixelntfy -p 8080:3000 \
 npm ci
 npm run build
 npm test
+npm run test:coverage
 ```
 
-Dependencies are updated by Renovate. Auto-merge is disabled until the `test` workflow is a required branch-protection check.
+`test:coverage` enforces line ≥93%, branch ≥90%, and function ≥85% coverage for `server.js`.
+
+Dependencies are updated by Renovate. Non-major updates are configured for native auto-merge; this takes effect once the `test` workflow is a required branch-protection check. Major updates stay manual.
 
 Screenshot:
 

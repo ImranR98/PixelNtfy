@@ -11,6 +11,7 @@
   "dependencyDashboard": true,
   "rangeStrategy": "replace",
   "automerge": false,
+  "separateMajorMinor": true,
   "lockFileMaintenance": {
     "enabled": true,
     "schedule": ["at any time"]
@@ -29,9 +30,23 @@
       "groupName": "docker base images"
     },
     {
-      "description": "GitHub Actions updates",
+      "description": "Batch non-major GitHub Actions updates; majors stay separate",
       "matchManagers": ["github-actions"],
-      "groupName": "github actions"
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest", "pinDigest"],
+      "groupName": "github actions (non-major)"
+    },
+    {
+      "description": "Auto-merge non-major updates after the required test check passes",
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest", "pinDigest"],
+      "automerge": true,
+      "platformAutomerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
+    },
+    {
+      "description": "Major updates stay manual",
+      "matchUpdateTypes": ["major"],
+      "automerge": false
     }
   ]
 }
