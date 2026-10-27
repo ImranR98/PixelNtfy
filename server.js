@@ -112,16 +112,21 @@ if (require.main === module) {
     })
 }
 
+// Derive a proper, fixed-length (32-byte) key via a KDF instead of using the
+// raw secret (e.g. the ntfy topic, which is logged elsewhere) directly as
+// AES key material.
+const deriveKey = (secretKey) => crypto.createHash('sha256').update(String(secretKey)).digest()
+
 const encrypt = (str, secretKey) => {
     const iv = crypto.randomBytes(16);
-    const cipher = crypto.createCipheriv('aes-256-ctr', secretKey, iv);
+    const cipher = crypto.createCipheriv('aes-256-ctr', deriveKey(secretKey), iv);
     const encrypted = cipher.update(str, 'utf8', 'base64') + cipher.final('base64');
     return Buffer.from(iv.toString('base64') + ':' + encrypted).toString('base64url');
 }
 
 const decrypt = (str, secretKey) => {
     const [iv, encrypted] = Buffer.from(str, 'base64').toString().split(':');
-    const decipher = crypto.createDecipheriv('aes-256-ctr', secretKey, Buffer.from(iv, 'base64'));
+    const decipher = crypto.createDecipheriv('aes-256-ctr', deriveKey(secretKey), Buffer.from(iv, 'base64'));
     const decrypted = decipher.update(encrypted, 'base64', 'utf8') + decipher.final('utf8');
     return decrypted;
 }
