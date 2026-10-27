@@ -56,5 +56,6 @@
       ],
       "groupName": "github actions (non-major)"
     }
-  ]
+  ],
+  "minimumReleaseAge": "3 days"
 }
