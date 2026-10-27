@@ -4,13 +4,12 @@
     "config:recommended",
     "docker:pinDigests",
     "helpers:pinGitHubActionDigests",
-    ":configMigration",
-    "security:minimumReleaseAgeNpm"
+    "security:minimumReleaseAgeNpm",
+    ":configMigration"
   ],
   "osvVulnerabilityAlerts": true,
   "dependencyDashboard": true,
   "rangeStrategy": "replace",
-  "automerge": false,
   "separateMajorMinor": true,
   "lockFileMaintenance": {
     "enabled": true,
@@ -56,31 +55,6 @@
         "pinDigest"
       ],
       "groupName": "github actions (non-major)"
-    },
-    {
-      "description": "Auto-merge non-major updates after the required test check passes",
-      "matchUpdateTypes": [
-        "minor",
-        "patch",
-        "pin",
-        "digest",
-        "pinDigest"
-      ],
-      "automerge": true,
-      "platformAutomerge": true,
-      "automergeType": "pr",
-      "automergeStrategy": "squash"
-    },
-    {
-      "description": "Auto-merge major updates after the full test gate passes",
-      "matchUpdateTypes": [
-        "major"
-      ],
-      "automerge": true,
-      "platformAutomerge": true,
-      "automergeType": "pr",
-      "automergeStrategy": "squash",
-      "ignoreTests": false
     }
   ]
 }
