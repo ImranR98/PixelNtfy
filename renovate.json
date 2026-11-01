@@ -1,61 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended",
-    "docker:pinDigests",
-    "helpers:pinGitHubActionDigests",
-    "security:minimumReleaseAgeNpm",
-    ":configMigration"
-  ],
-  "osvVulnerabilityAlerts": true,
-  "dependencyDashboard": true,
-  "rangeStrategy": "replace",
-  "separateMajorMinor": true,
-  "lockFileMaintenance": {
-    "enabled": true,
-    "schedule": [
-      "at any time"
-    ]
-  },
-  "packageRules": [
-    {
-      "description": "Batch non-major npm updates; majors stay separate",
-      "matchManagers": [
-        "npm"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch",
-        "pin",
-        "digest"
-      ],
-      "groupName": "npm deps (non-major)"
-    },
-    {
-      "description": "Docker base image pins and digest refreshes",
-      "matchManagers": [
-        "dockerfile"
-      ],
-      "matchUpdateTypes": [
-        "digest",
-        "pinDigest"
-      ],
-      "groupName": "docker base images"
-    },
-    {
-      "description": "Batch non-major GitHub Actions updates; majors stay separate",
-      "matchManagers": [
-        "github-actions"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch",
-        "pin",
-        "digest",
-        "pinDigest"
-      ],
-      "groupName": "github actions (non-major)"
-    }
-  ],
-  "minimumReleaseAge": "3 days"
+    "github>ImranR98/Infra//renovate-preset"
+  ]
 }
